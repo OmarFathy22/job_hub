@@ -1,0 +1,5 @@
+how to setup react native app
+1- run command npx create-expo-app@latest --example with-router
+2- make folder app and make inside of it _layout.js and index.js files
+3- run command npm i -g expo-cli
+4- run command npx expo-cli start --tunnel
