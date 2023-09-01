@@ -16,8 +16,10 @@ import fetchjobs from "../../../utils/newRequst";
 const Popularjobs = () => {
   const { isLoading, error, data: jobs } = useQuery({
     queryKey: ["jobs"],
-    queryFn: fetchjobs,
+    queryFn: () =>
+      fetchjobs("search", { query: "React developer", num_pages: 1 }),
   });
+
   const router = useRouter();
   return (
     <View style={styles.container}>
