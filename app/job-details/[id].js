@@ -25,6 +25,7 @@ import {
 import { COLORS, icons, SIZES } from "../../constants";
 import fetchData from "../../utils/newRequst";
 import { useQuery } from "@tanstack/react-query";
+import About from "../../components/jobdetails/about/About";
 const tabs = ["About", "Qualifications", "Responsibilities"];
 const JobDetails = () => {
   useEffect(() => {
@@ -85,17 +86,32 @@ const JobDetails = () => {
               activeTab={activeTab}
               setActiveTab={setActiveTab}
             />
-            {activeTab === tabs[0] && <View />}
+            {activeTab === tabs[0] && (
+              <About info={data[0]?.job_description ?? "No data provided"} />
+            )}
             {activeTab === tabs[1] && (
               <Specifics
                 title="Qualifications"
-                points={data[0].job_highlights?.Qualifications ?? ["N/A"]}
+                points={data[0]?.job_highlights?.Qualifications ?? ["N/A"]}
               />
             )}
-            {activeTab === tabs[2] && <View />}
+            {activeTab === tabs[2] && (
+              <Specifics
+                title="Responsibilities"
+                points={
+                  data[0]?.job_highlights?.Responsibilities ??
+                  "No data provided"
+                }
+              />
+            )}
           </View>
         )}
       </ScrollView>
+      <JobFooter
+        url={
+          data[0]?.job_apply_link || "https://careers.google.com/jobs/results"
+        }
+      />
     </SafeAreaView>
   );
 };

@@ -1,11 +1,18 @@
 import React from "react";
-import { View, Text, TextInput, Image , TouchableOpacity, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Image,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
 
 import styles from "./welcome.style";
 import { useRouter } from "expo-router";
 import { SIZES } from "../../../constants";
 const jopTypes = ["Full Time", "Part Time", "Contractor"];
-const Welcome = () => {
+const Welcome = ({ searchTerm, setSearchTerm, handleSearch }) => {
   const router = useRouter();
   const [activeJobType, setActiveJobType] = React.useState(jopTypes[0]);
   return (
@@ -16,27 +23,44 @@ const Welcome = () => {
       </View>
       <View style={styles.searchContainer}>
         <View style={styles.searchWrapper}>
-          <TextInput style={styles.searchInput} placeholder="What are you looking for..." value="" onChange={()=>{}} />
+          <TextInput
+            value={searchTerm}
+            onChangeText={(text) => setSearchTerm(text)}
+            style={styles.searchInput}
+            placeholder="What are you looking for..."
+          />
         </View>
-        <TouchableOpacity style={styles.searchBtn} >
-          <Image style={styles.searchBtnImage} resizeMode="contain" source={require("../../../assets/icons/search.png")} />
-         </TouchableOpacity>
+        <TouchableOpacity style={styles.searchBtn}>
+          <Image
+            style={styles.searchBtnImage}
+            resizeMode="contain"
+            source={require("../../../assets/icons/search.png")}
+            onPress={() => {
+              router.push(`/search/${searchTerm}`);
+            }}
+          />
+        </TouchableOpacity>
       </View>
-         <View style={styles.tabsContainer}>
-            <FlatList data={jopTypes} renderItem={({item})=>(
-              <TouchableOpacity style={styles.tab(activeJobType,item)} onPress={() => {
+      <View style={styles.tabsContainer}>
+        <FlatList
+          data={jopTypes}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={styles.tab(activeJobType, item)}
+              onPress={() => {
                 setActiveJobType(item);
-                router.push(`/search/${item}`)
-              }}>
-                <Text style={styles.tabText(activeJobType,item)}>{item}</Text>
-              </TouchableOpacity>
-            )}
-            keyExtractor={item =>item}
-            contentContainerStyle={{columnGap:SIZES.small}}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            />
-         </View>
+                router.push(`/search/${item}`);
+              }}
+            >
+              <Text style={styles.tabText(activeJobType, item)}>{item}</Text>
+            </TouchableOpacity>
+          )}
+          keyExtractor={(item) => item}
+          contentContainerStyle={{ columnGap: SIZES.small }}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+        />
+      </View>
     </View>
   );
 };
