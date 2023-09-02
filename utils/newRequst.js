@@ -5,7 +5,7 @@ export default newRequest = async (search, query) => {
     url: `https://jsearch.p.rapidapi.com/${search}`,
     params: { ...query },
     headers: {
-      "X-RapidAPI-Key": "119128ac75msh8a31a2cbd0392bcp12a848jsn79d875548023",
+      "X-RapidAPI-Key": "9a5cb629e6mshb00fbb5b1b91b6ap1c1d8fjsnfa9373ac7eab",
       "X-RapidAPI-Host": "jsearch.p.rapidapi.com",
     },
   };

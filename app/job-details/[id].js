@@ -28,24 +28,29 @@ import { useQuery } from "@tanstack/react-query";
 import About from "../../components/jobdetails/about/About";
 const tabs = ["About", "Qualifications", "Responsibilities"];
 const JobDetails = () => {
-  useEffect(() => {
-    console.log(local);
-  }, []);
   const router = useRouter();
   const local = useLocalSearchParams();
   const [refreshing, setRefreshing] = useState(false);
+  const [jobApplyLink, setjobApplyLink] = useState(
+    "https://careers.google.com/jobs/results"
+  );
   const [activeTab, setActiveTab] = useState(tabs[0]);
   const [loading, setLoading] = useState(true); // New state variable
-  const onRefresh = () => {};
-  const { error, data } = useQuery(
+  const { error, data, refetch } = useQuery(
     ["jobDetails"],
     () => fetchData("job-details", { job_id: local.id }),
     {
       onSuccess: () => {
         setLoading(false);
+        setjobApplyLink(data[0]?.job_apply_link);
       },
     }
   );
+  const onRefresh = () => {
+    setRefreshing(true);
+    refetch();
+    setRefreshing(false);
+  };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <Stack.Screen
@@ -107,11 +112,7 @@ const JobDetails = () => {
           </View>
         )}
       </ScrollView>
-      <JobFooter
-        url={
-          data[0]?.job_apply_link || "https://careers.google.com/jobs/results"
-        }
-      />
+      <JobFooter url={jobApplyLink} />
     </SafeAreaView>
   );
 };

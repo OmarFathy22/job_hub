@@ -30,14 +30,16 @@ const Welcome = ({ searchTerm, setSearchTerm, handleSearch }) => {
             placeholder="What are you looking for..."
           />
         </View>
-        <TouchableOpacity style={styles.searchBtn}>
+        <TouchableOpacity
+          style={styles.searchBtn}
+          onPress={() => {
+            router.push(`/search/${searchTerm}`);
+          }}
+        >
           <Image
             style={styles.searchBtnImage}
             resizeMode="contain"
             source={require("../../../assets/icons/search.png")}
-            onPress={() => {
-              router.push(`/search/${searchTerm}`);
-            }}
           />
         </TouchableOpacity>
       </View>
