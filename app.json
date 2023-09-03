@@ -8,6 +8,17 @@
       "expo-router"
     ],
     "name": "job_hub",
-    "slug": "job_hub"
+    "slug": "job_hub",
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "52140310-e495-4019-89c2-bb004ed0fac1"
+      }
+    },
+    "android": {
+      "package": "com.omar_fathy.job_hub"
+    }
   }
 }

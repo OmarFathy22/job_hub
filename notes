@@ -3,3 +3,9 @@ how to setup react native app
 2- make folder app and make inside of it _layout.js and index.js files
 3- run command npm i -g expo-cli
 4- run command npx expo-cli start --tunnel
+
+to build the app
+1- npm install -g eas-cli && eas login
+2- eas build:configure
+3- eas build -p android --profile preview
+4- go to expo profile and download tha apk
